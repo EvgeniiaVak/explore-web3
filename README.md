@@ -15,8 +15,6 @@ npx hardhat node
 npx hardhat run scripts/deploy.ts
 ```
 
-Whitelist Contract Address: `0x0Bd68C083D8AFf7404067660Ae8A5Aff82B8BD88`
-
 ## website
 
 A next.js website.
