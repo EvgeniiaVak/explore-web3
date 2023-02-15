@@ -1,8 +1,7 @@
 # Sample Hardhat Project
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
-
-Try running some of the following tasks:
+A study project based on [LearnWeb3 DAO's sophomore course task](https://learnweb3.io/courses) except using
+TypeScript instead of JavaScript.
 
 ```shell
 npx hardhat help
@@ -11,3 +10,5 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat run scripts/deploy.ts
 ```
+
+Whitelist Contract Address: `0x0Bd68C083D8AFf7404067660Ae8A5Aff82B8BD88`
