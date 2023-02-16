@@ -164,6 +164,16 @@ export default function Home() {
     }
   };
 
+  const alreadyJoined = () => {
+    if (walletConnected) {
+      return (
+          <div className={styles.description}>
+            {numberOfWhitelisted.toString()} have already joined the Whitelist
+          </div>
+      );
+    }
+  }
+
   // useEffects are used to react to changes in state of the website
   // The array at the end of function call represents what state changes will trigger this effect
   // In this case, whenever the value of `walletConnected` changes - this effect will be called
@@ -194,9 +204,8 @@ export default function Home() {
             <div className={styles.description}>
               Its an NFT collection for developers in Crypto.
             </div>
-            <div className={styles.description}>
-              {numberOfWhitelisted.toString()} have already joined the Whitelist
-            </div>
+
+            {alreadyJoined()}
             {renderButton()}
           </div>
           <div>
