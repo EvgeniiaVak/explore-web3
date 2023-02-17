@@ -217,7 +217,7 @@ export default function Home() {
         </div>
 
         <footer className={styles.footer}>
-          <a href="https://learnweb3.io/courses" target="_blank">🎓 Inspired by LearnWeb3 Courses</a>
+          <a href="https://learnweb3.io/courses" target="_blank" rel="noreferrer">🎓 Inspired by LearnWeb3 Courses</a>
         </footer>
       </div>
   );
