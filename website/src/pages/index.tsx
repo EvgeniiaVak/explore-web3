@@ -5,6 +5,8 @@ import { BrowserProvider, Contract } from "ethers";
 import { useEffect, useRef, useState } from "react";
 import { WHITELIST_CONTRACT_ADDRESS, ABI } from "@/constants";
 
+import nextConfig from "next.config.js";
+
 export default function Home() {
   // walletConnected keep track of whether the user's wallet is connected or not
   const [walletConnected, setWalletConnected] = useState(false);
@@ -164,6 +166,8 @@ export default function Home() {
     }
   };
 
+  // showing already joined only if wallet is connected
+  // otherwise, it will show 0 which is not correct
   const alreadyJoined = () => {
     if (walletConnected) {
       return (
@@ -200,21 +204,20 @@ export default function Home() {
         </Head>
         <div className={styles.main}>
           <div>
-            <h1 className={styles.title}>Welcome to Crypto Devs!</h1>
+            <h1 className={styles.title}>Welcome 🤗</h1>
             <div className={styles.description}>
-              Its an NFT collection for developers in Crypto.
+              This is a whitelist of addresses on Goerli network subscribed to nothing in particular.
             </div>
-
             {alreadyJoined()}
             {renderButton()}
           </div>
           <div>
-            <img className={styles.image} src="./crypto-devs.svg"  alt="Developer Whitelist"/>
+            <img className={styles.image} src={`${nextConfig.basePath}/crypto-devs.svg`}  alt="Developer Whitelist"/>
           </div>
         </div>
 
         <footer className={styles.footer}>
-          Made with &#10084; by Crypto Devs
+          <a href="https://learnweb3.io/courses" target="_blank">🎓 Inspired by LearnWeb3 Courses</a>
         </footer>
       </div>
   );
