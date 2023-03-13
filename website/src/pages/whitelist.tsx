@@ -212,7 +212,7 @@ export default function Home() {
             {renderButton()}
           </div>
           <div>
-            <img className={styles.image} src={`${nextConfig.basePath}/crypto-devs.svg`}  alt="Developer Whitelist"/>
+            <img className={styles.image} src="crypto-devs.svg" alt="Developer Whitelist"/>
           </div>
         </div>
 
