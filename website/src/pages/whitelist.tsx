@@ -52,9 +52,9 @@ export default function Home() {
       // Create a new instance of the Contract with a Signer, which allows
       // update methods
       const whitelistContract = new Contract(
-          WHITELIST_CONTRACT_ADDRESS,
-          ABI,
-          signer
+        WHITELIST_CONTRACT_ADDRESS,
+        ABI,
+        signer
       );
       // call the addAddressToWhitelist from the contract
       const tx = await whitelistContract.addAddressToWhitelist();
@@ -81,13 +81,13 @@ export default function Home() {
       // We connect to the Contract using a Provider, so we will only
       // have read-only access to the Contract
       const whitelistContract = new Contract(
-          WHITELIST_CONTRACT_ADDRESS,
-          ABI,
-          provider
+        WHITELIST_CONTRACT_ADDRESS,
+        ABI,
+        provider
       );
       // call the numAddressesWhitelisted from the contract
       const _numberOfWhitelisted =
-          await whitelistContract.numAddressesWhitelisted();
+        await whitelistContract.numAddressesWhitelisted();
       setNumberOfWhitelisted(_numberOfWhitelisted);
     } catch (err) {
       console.error(err);
@@ -104,15 +104,15 @@ export default function Home() {
       // We can use it in its place
       const signer = await (await getProvider()).getSigner();
       const whitelistContract = new Contract(
-          WHITELIST_CONTRACT_ADDRESS,
-          ABI,
-          signer
+        WHITELIST_CONTRACT_ADDRESS,
+        ABI,
+        signer
       );
       // Get the address associated to the signer which is connected to  MetaMask
       const address = await signer.getAddress();
       // call the whitelistedAddresses from the contract
       const _joinedWhitelist = await whitelistContract.whitelistedAddresses(
-          address
+        address
       );
       setJoinedWhitelist(_joinedWhitelist);
     } catch (err) {
@@ -121,8 +121,8 @@ export default function Home() {
   };
 
   /*
-    connectWallet: Connects the MetaMask wallet
-  */
+        connectWallet: Connects the MetaMask wallet
+      */
   const connectWallet = async () => {
     try {
       // Get the provider from web3Modal, which in our case is MetaMask
@@ -138,30 +138,30 @@ export default function Home() {
   };
 
   /*
-    renderButton: Returns a button based on the state of the dapp
-  */
+        renderButton: Returns a button based on the state of the dapp
+      */
   const renderButton = () => {
     if (walletConnected) {
       if (joinedWhitelist) {
         return (
-            <div className={styles.description}>
-              Thanks for joining the Whitelist!
-            </div>
+          <div className={styles.description}>
+            Thanks for joining the Whitelist!
+          </div>
         );
       } else if (loading) {
         return <button className={styles.button}>Loading...</button>;
       } else {
         return (
-            <button onClick={addAddressToWhitelist} className={styles.button}>
-              Join the Whitelist
-            </button>
+          <button onClick={addAddressToWhitelist} className={styles.button}>
+            Join the Whitelist
+          </button>
         );
       }
     } else {
       return (
-          <button onClick={connectWallet} className={styles.button}>
-            Connect your wallet
-          </button>
+        <button onClick={connectWallet} className={styles.button}>
+          Connect your wallet
+        </button>
       );
     }
   };
@@ -171,12 +171,12 @@ export default function Home() {
   const alreadyJoined = () => {
     if (walletConnected) {
       return (
-          <div className={styles.description}>
-            {numberOfWhitelisted.toString()} have already joined the Whitelist
-          </div>
+        <div className={styles.description}>
+          {numberOfWhitelisted.toString()} have already joined the Whitelist
+        </div>
       );
     }
-  }
+  };
 
   // useEffects are used to react to changes in state of the website
   // The array at the end of function call represents what state changes will trigger this effect
@@ -187,7 +187,6 @@ export default function Home() {
       // Assign the Web3Modal class to the reference object by setting its `current` value
       // The `current` value is persisted throughout as long as this page is open
       web3ModalRef.current = new Web3Modal({
-        network: "goerli",
         providerOptions: {},
         disableInjectedProvider: false,
       });
@@ -196,29 +195,36 @@ export default function Home() {
   }, [walletConnected]);
 
   return (
-      <div>
-        <Head>
-          <title>Whitelist</title>
-          <meta name="description" content="Whitelist" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <div className={styles.main}>
-          <div>
-            <h1 className={styles.title}>Welcome 🤗</h1>
-            <div className={styles.description}>
-              This is a whitelist of addresses on Goerli network subscribed to nothing in particular.
-            </div>
-            {alreadyJoined()}
-            {renderButton()}
+    <div>
+      <Head>
+        <title>Whitelist</title>
+        <meta name="description" content="Whitelist" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div className={styles.main}>
+        <div>
+          <h1 className={styles.title}>Welcome 🤗</h1>
+          <div className={styles.description}>
+            This is a whitelist of addresses on Goerli network subscribed to
+            nothing in particular.
           </div>
-          <div>
-            <img className={styles.image} src="/crypto-devs.svg" alt="Developer Whitelist"/>
-          </div>
+          {alreadyJoined()}
+          {renderButton()}
         </div>
-
-        <footer className={styles.footer}>
-          <a href="https://learnweb3.io/courses" target="_blank" rel="noreferrer">🎓 Inspired by LearnWeb3 Courses</a>
-        </footer>
+        <div>
+          <img
+            className={styles.image}
+            src="/crypto-devs.svg"
+            alt="Developer Whitelist"
+          />
+        </div>
       </div>
+
+      <footer className={styles.footer}>
+        <a href="https://learnweb3.io/courses" target="_blank" rel="noreferrer">
+          🎓 Inspired by LearnWeb3 Courses
+        </a>
+      </footer>
+    </div>
   );
 }

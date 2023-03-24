@@ -18,6 +18,17 @@ npx hardhat run scripts/deploy.ts
 ## website
 
 A next.js website.
+
 ```shell
+cd website
+npm run dev
+```
+
+## portal
+
+Nuxt app that explores Uniswap data. Not based on the course tasks, just a free exploration.
+
+```shell
+cd website
 npm run dev
 ```
