@@ -1,15 +1,7 @@
 <template>
   <div>
     <h2>Pool Ranking</h2>
-    <div>
-      ⚠️ The information here is queried
-      from
-      <a
-          target="_blank" href="https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3/graphql">Uniswap
-        GraphQL
-        API</a>, as such it is always for <span class="font-bold">mainnet</span> regardless of what the wallet is
-      connected to.
-    </div>
+
 
     <div class="navbar px-0 mt-4 font-bold">
       <div class="navbar-start">
@@ -23,10 +15,9 @@
     <Table :headers="poolsDataHeaders" :rows="poolsData"></Table>
 
     <div>
-      Assuming that we had a position of 100 USD during that period, for simplicity assuming that all the locked volume
-      was in the active range for all participants, let's see how much profit we would receive.
+      To estimate how much we would earn from a pool, if we had a position during a given day, let's look at the ratio
+      of fees paid to the pool's total value locked (TVL).
     </div>
-
     <Table :headers="poolsRatioDataHeaders" :rows="poolsRatioData"></Table>
 
   </div>
@@ -34,10 +25,6 @@
 
 <script lang="ts" type="module" setup>
 import {Token} from '@uniswap/sdk-core'
-
-
-// TODO: other token list?
-// TODO: why no ETH?
 import defaultTokens from '@uniswap/default-token-list'
 
 // chain id -> symbol -> token
@@ -79,6 +66,7 @@ async function getPoolsInfo() {
     where: {date: ${requestedDate}}
   ) {
     tvlUSD
+    feesUSD
     volumeUSD
     id
     pool {
@@ -100,27 +88,30 @@ async function getPoolsInfo() {
       const pool = `${poolDayData.pool.token0.symbol}/${poolDayData.pool.token1.symbol} (${poolDayData.pool.feeTier / 10000}%)`
       return {
         pool,
+        link: `https://info.uniswap.org/#/pools/${poolDayData.pool.id}`,
         volume: poolDayData.volumeUSD,
         tvl: poolDayData.tvlUSD,
         feeTier: poolDayData.pool.feeTier,
         poolId: poolDayData.pool.id,
+        fees: poolDayData.feesUSD,
       }
     })
-    poolsDataHeaders.value = ['pool', 'volume', 'tvl']
+    poolsDataHeaders.value = ['pool', 'volume', 'fees', 'tvl']
 
-    const ratioHeader = 'volume / tvl'
-    const rewardHeader = 'fee * volume / tvl'
+    const rewardHeader = 'fees / tvl * 100 * 365'
     poolsRatioData.value = poolsData.value.map((poolData) => {
       return {
         pool: poolData.pool,
-        [ratioHeader]: poolData.volume / poolData.tvl,
-        [rewardHeader]: poolData.feeTier / 10000 * poolData.volume / poolData.tvl,
+        link: poolData.link,
+        [rewardHeader]: poolData.fees / poolData.tvl * 100 * 365,
         poolId: poolData.poolId,
       }
     })
     poolsRatioData.value.sort((a, b) => (b[rewardHeader] - a[rewardHeader]))
-    poolsRatioDataHeaders.value = ['pool', rewardHeader, ratioHeader]
+    poolsRatioDataHeaders.value = ['pool', rewardHeader]
   }
+
+  console.log(JSON.stringify(poolsRatioData.value, null, 2))
 }
 
 getPoolsInfo()

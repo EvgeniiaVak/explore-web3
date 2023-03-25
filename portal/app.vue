@@ -19,6 +19,15 @@
         </div>
 
         <NuxtPage/>
+
+        <footer>
+          <div class="text-xl font-bold">📚 Data sources:</div>
+          <ul>
+            <li><a target="_blank" href="https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3/graphql">Uniswap
+              GraphQL
+              API</a></li>
+          </ul>
+        </footer>
       </div>
     </NuxtLayout>
   </div>
@@ -29,37 +38,12 @@ import Web3Modal from "web3modal"
 import {BrowserProvider, ethers} from "ethers"
 
 const colorMode = useColorMode()
+// more themes at https://daisyui.com/docs/themes/
 const themes = [
   'system',
   'light',
   'dark',
-  // 'cupcake',
-  // 'bumblebee',
-  // 'emerald',
-  // 'corporate',
-  // 'synthwave',
-  // 'retro',
   'cyberpunk',
-  // 'valentine',
-  // 'halloween',
-  // 'garden',
-  // 'forest',
-  // 'aqua',
-  // 'lofi',
-  // 'pastel',
-  // 'fantasy',
-  // 'wireframe',
-  // 'black',
-  // 'luxury',
-  // 'dracula',
-  // 'cmyk',
-  // 'autumn',
-  // 'business',
-  // 'acid',
-  // 'lemonade',
-  // 'night',
-  // 'coffee',
-  // 'winter',
 ];
 
 let browserProvider: null | BrowserProvider = null

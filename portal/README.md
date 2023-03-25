@@ -10,6 +10,8 @@ Explore uniswap data to decide which pools to invest in.
 
 - [x] determine what data would be interesting to visualize
 - [x] sort pools by volume usd
-- [ ] sort by ratio of tvl to volume among the top by volume
+- [x] sort by expected return
+- [ ] visualize pool expected return over time - compare to other pools
+- [ ] a visual tool for picking the best tick range
 - [ ] provide a link to create a pool - https://app.uniswap.org/#/pools
 - [ ] visualize own position in the pool - current tick range and position's tick range by time

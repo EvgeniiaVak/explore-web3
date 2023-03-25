@@ -12,7 +12,12 @@
       <!-- rows -->
       <tr v-for="(row, index) in rows">
         <th>{{ index + 1 }}</th>
-        <td v-for="h in headers">{{ row[h] }}</td>
+        <td v-for="h in headers">
+          <template v-if="h==='pool'"><a
+              :href="row.link">{{ row[h] }}</a>
+          </template>
+          <template v-else>{{ row[h] }}</template>
+        </td>
       </tr>
       </tbody>
     </table>
