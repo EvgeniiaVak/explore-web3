@@ -1,0 +1,23 @@
+query GetPoolsInfoQuery($nTopPools: Int!, $requestedDate: Int!) {
+    poolDayDatas(
+        first: $nTopPools
+        orderBy: volumeUSD
+        orderDirection: desc
+        where: { date: $requestedDate }
+    ) {
+        tvlUSD
+        feesUSD
+        volumeUSD
+        id
+        pool {
+            id
+            token0 {
+                symbol
+            }
+            token1 {
+                symbol
+            }
+            feeTier
+        }
+    }
+}

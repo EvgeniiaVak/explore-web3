@@ -1,9 +1,8 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import Web3Modal from "web3modal";
 import { BrowserProvider, Contract } from "ethers";
 import { useEffect, useRef, useState } from "react";
-import { WHITELIST_CONTRACT_ADDRESS, ABI } from "@/constants";
+import { WHITELIST_CONTRACT_ADDRESS, WHITELIST_ABI } from "@/constants";
 
 import nextConfig from "next.config.js";
 
@@ -53,7 +52,7 @@ export default function Home() {
       // update methods
       const whitelistContract = new Contract(
         WHITELIST_CONTRACT_ADDRESS,
-        ABI,
+        WHITELIST_ABI,
         signer
       );
       // call the addAddressToWhitelist from the contract
@@ -82,7 +81,7 @@ export default function Home() {
       // have read-only access to the Contract
       const whitelistContract = new Contract(
         WHITELIST_CONTRACT_ADDRESS,
-        ABI,
+        WHITELIST_ABI,
         provider
       );
       // call the numAddressesWhitelisted from the contract
@@ -105,7 +104,7 @@ export default function Home() {
       const signer = await (await getProvider()).getSigner();
       const whitelistContract = new Contract(
         WHITELIST_CONTRACT_ADDRESS,
-        ABI,
+        WHITELIST_ABI,
         signer
       );
       // Get the address associated to the signer which is connected to  MetaMask
@@ -143,23 +142,19 @@ export default function Home() {
   const renderButton = () => {
     if (walletConnected) {
       if (joinedWhitelist) {
-        return (
-          <div className={styles.description}>
-            Thanks for joining the Whitelist!
-          </div>
-        );
+        return <div className="">Thanks for joining the Whitelist!</div>;
       } else if (loading) {
-        return <button className={styles.button}>Loading...</button>;
+        return <button className="">Loading...</button>;
       } else {
         return (
-          <button onClick={addAddressToWhitelist} className={styles.button}>
+          <button onClick={addAddressToWhitelist} className="btn">
             Join the Whitelist
           </button>
         );
       }
     } else {
       return (
-        <button onClick={connectWallet} className={styles.button}>
+        <button onClick={connectWallet} className="btn">
           Connect your wallet
         </button>
       );
@@ -171,7 +166,7 @@ export default function Home() {
   const alreadyJoined = () => {
     if (walletConnected) {
       return (
-        <div className={styles.description}>
+        <div className="">
           {numberOfWhitelisted.toString()} have already joined the Whitelist
         </div>
       );
@@ -188,7 +183,7 @@ export default function Home() {
       // The `current` value is persisted throughout as long as this page is open
       web3ModalRef.current = new Web3Modal({
         providerOptions: {},
-        disableInjectedProvider: false,
+        disableInjectedProvider: false
       });
       connectWallet();
     }
@@ -201,10 +196,10 @@ export default function Home() {
         <meta name="description" content="Whitelist" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={styles.main}>
+      <div>
         <div>
-          <h1 className={styles.title}>Welcome 🤗</h1>
-          <div className={styles.description}>
+          <h1>Welcome 🤗</h1>
+          <div>
             This is a whitelist of addresses on Goerli network subscribed to
             nothing in particular.
           </div>
@@ -212,15 +207,11 @@ export default function Home() {
           {renderButton()}
         </div>
         <div>
-          <img
-            className={styles.image}
-            src="/crypto-devs.svg"
-            alt="Developer Whitelist"
-          />
+          <img src="/crypto-devs.svg" alt="Developer Whitelist" />
         </div>
       </div>
 
-      <footer className={styles.footer}>
+      <footer>
         <a href="https://learnweb3.io/courses" target="_blank" rel="noreferrer">
           🎓 Inspired by LearnWeb3 Courses
         </a>
