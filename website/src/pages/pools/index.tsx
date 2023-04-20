@@ -74,7 +74,7 @@ const Pools = () => {
   const [rewardData, setRewardData] = useState<PoolRewardData[]>([]);
 
   function onDateChange(event: FormEvent<HTMLInputElement>) {
-    setPoolsDataDate(event.target.value);
+    setPoolsDataDate((event.target as HTMLInputElement).value);
   }
 
 
@@ -93,7 +93,7 @@ const Pools = () => {
     getPoolsInfo().then(() => {
       console.log("fetched pools data");
     });
-  }, [poolsDataDate]);
+  }, [getPoolsData, poolsDataDate]);
 
 
   useEffect(() => {

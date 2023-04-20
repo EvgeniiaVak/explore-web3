@@ -2,6 +2,7 @@ import Head from "next/head";
 import Web3Modal from "web3modal";
 import { BrowserProvider, Contract } from "ethers";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { WHITELIST_CONTRACT_ADDRESS, WHITELIST_ABI } from "@/constants";
 
 import nextConfig from "next.config.js";
@@ -187,7 +188,7 @@ export default function Home() {
       });
       connectWallet();
     }
-  }, [walletConnected]);
+  }, [walletConnected, connectWallet]);
 
   return (
     <div>
@@ -199,7 +200,7 @@ export default function Home() {
       <div>
         <div>
           <h1>Welcome 🤗</h1>
-          <div>
+          <div className="my-4">
             This is a whitelist of addresses on Goerli network subscribed to
             nothing in particular.
           </div>
@@ -207,7 +208,7 @@ export default function Home() {
           {renderButton()}
         </div>
         <div>
-          <img src="/crypto-devs.svg" alt="Developer Whitelist" />
+          <Image src="/crypto-devs.svg" alt="Developer Whitelist" width={200} height={200} />
         </div>
       </div>
 
