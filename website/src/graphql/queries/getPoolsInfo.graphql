@@ -12,9 +12,11 @@ query GetPoolsInfoQuery($nTopPools: Int!, $requestedDate: Int!) {
         pool {
             id
             token0 {
+                id
                 symbol
             }
             token1 {
+                id
                 symbol
             }
             feeTier

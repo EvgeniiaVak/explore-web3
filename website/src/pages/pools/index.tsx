@@ -10,30 +10,35 @@ import UniswapDataSourcesFooter from "@/components/UniswapDataSourcesFooter";
 
 type PoolRankingData = {
   pool: string;
-  link: string;
   volume: number;
   tvl: number;
   feeTier: number;
   poolId: string;
   fees: number;
-};
-
-type PoolRewardData = {
-  pool: string;
-  link: string;
+  token0: string;
+  token1: string;
   [REWARD_HEADER]: number;
-  poolId: string;
 };
 
 // TODO: recall why did I have this
 const tokens = tokenMap(defaultTokens.tokens);
+
+
+function UniswapLink(row: PoolRankingData) {
+
+  // for example:
+  // https://app.uniswap.org/#/add/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/3000
+
+  return <a href={`https://app.uniswap.org/#/add/${row.token0}/${row.token1}/${row.feeTier}`} target="_blank"
+            rel="noreferrer">{row.pool}</a>;
+}
 
 const rankingColumns = [
   {
     title: "Pool",
     dataIndex: "pool",
     width: 200,
-    render: (value: string, row: PoolRankingData) => <a href={"pools/" + row.poolId}>{value}</a>
+    render: (value: string, row: PoolRankingData) => UniswapLink(row)
   },
   {
     title: "Volume ⬇︎",
@@ -58,7 +63,7 @@ const rewardColumns = [
     title: "Pool",
     dataIndex: "pool",
     width: 200,
-    render: (value: string) => <a href="#">{value}</a>
+    render: (value: string, row: PoolRankingData) => UniswapLink(row)
   },
   {
     title: REWARD_HEADER,
@@ -72,7 +77,6 @@ const Pools = () => {
   const [poolsDataDate, setPoolsDataDate] = useState(today.toISOString().split("T")[0]);
   const [getPoolsData, { loading, error, data }] = useLazyQuery(getPoolsInfoQuery);
   const [rankingData, setRankingData] = useState<PoolRankingData[]>([]);
-  const [rewardData, setRewardData] = useState<PoolRewardData[]>([]);
 
   function onDateChange(event: FormEvent<HTMLInputElement>) {
     setPoolsDataDate((event.target as HTMLInputElement).value);
@@ -101,32 +105,22 @@ const Pools = () => {
     if (!data) {
       return;
     }
-    const freshTableData = data.poolDayDatas.map((poolDayData: PoolDayData) => {
+    const freshRankingData = data.poolDayDatas.map((poolDayData: PoolDayData) => {
       const pool = `${poolDayData.pool.token0.symbol}/${poolDayData.pool.token1.symbol} (${poolDayData.pool.feeTier / 10000}%)`;
       return {
         pool,
-        link: `pool-details?id=${poolDayData.pool.id}`,
         volume: Math.round(poolDayData.volumeUSD),
         fees: Math.round(poolDayData.feesUSD),
         tvl: Math.round(poolDayData.tvlUSD),
+        token0: poolDayData.pool.token0.id,
+        token1: poolDayData.pool.token1.id,
         feeTier: poolDayData.pool.feeTier,
-        poolId: poolDayData.pool.id
-
+        poolId: poolDayData.pool.id,
+        [REWARD_HEADER]: calculateReward(poolDayData.feesUSD, poolDayData.tvlUSD)
       };
     });
 
-    setRankingData(freshTableData);
-
-    const freshRewardData = freshTableData.map((poolData: PoolRankingData) => {
-      return {
-        pool: poolData.pool,
-        link: poolData.link,
-        [REWARD_HEADER]: calculateReward(poolData.fees, poolData.tvl),
-        poolId: poolData.poolId
-      };
-    });
-    freshRewardData.sort((a: PoolRewardData, b: PoolRewardData) => b[REWARD_HEADER] - a[REWARD_HEADER]);
-    setRewardData(freshRewardData);
+    setRankingData(freshRankingData);
   }, [data]);
 
   if (error) {
@@ -149,7 +143,7 @@ const Pools = () => {
       <p>{REWARD_DESCRIPTION}</p>
 
       {loading ? <button className="btn btn-square loading mx-auto"></button> :
-        <Table className="text-sm" data={rewardData} columns={rewardColumns} />}
+        <Table className="text-sm" data={rankingData} columns={rewardColumns} />}
       <UniswapDataSourcesFooter />
 
     </div>
