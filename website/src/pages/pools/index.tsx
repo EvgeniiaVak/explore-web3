@@ -6,6 +6,7 @@ import { tokenMap } from "@/utils/tokens";
 import { useLazyQuery } from "@apollo/client";
 import { PoolDayData } from "@/graphql/generated/graphql";
 import Table from "rc-table";
+import UniswapDataSourcesFooter from "@/components/UniswapDataSourcesFooter";
 
 type PoolRankingData = {
   pool: string;
@@ -137,7 +138,7 @@ const Pools = () => {
     <div className="flex flex-col">
 
       <div className="flex justify-between">
-        <h2 className="text-xl my-auto">Rank Uniswap Pools</h2>
+        <h2 className="my-auto">Rank Uniswap Pools</h2>
         <input className="bg-transparent my-auto" type="date" onInput={onDateChange}
                defaultValue={poolsDataDate}></input>
       </div>
@@ -149,6 +150,7 @@ const Pools = () => {
 
       {loading ? <button className="btn btn-square loading mx-auto"></button> :
         <Table className="text-sm" data={rewardData} columns={rewardColumns} />}
+      <UniswapDataSourcesFooter />
 
     </div>
   );
