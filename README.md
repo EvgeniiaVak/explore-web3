@@ -22,15 +22,15 @@ The code was written with the help of [chat gpt 4](https://chat.openai.com/?mode
 
 Exploration of uniswap liquidity pools based on their graphql data.
 
-- [ ] get top pools by volumeUSD
-- [ ] rank pools by custom reward
+- [x] get top pools by volumeUSD
+- [x] rank pools by custom reward
 - [ ] display detailed pool data for each pool
 - [ ] use graphql subscription to update data live
 - [ ] display user's liquidity position in each pool if any
 
 ### whitelist
 
-Just a whitelist, look up the contract address in [src/constants.ts](src/constants.ts).
+Just a whitelist, look up the contract address in [src/constants.ts](website/src/constants.ts).
 
 - [x] display number of subscribers
 - [x] allow to subscribe (limited to 10)
