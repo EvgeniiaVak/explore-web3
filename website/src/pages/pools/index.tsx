@@ -62,11 +62,11 @@ const rewardColumns = [
   {
     title: "Pool",
     dataIndex: "pool",
-    width: 200,
+    width: 100,
     render: (value: string, row: PoolRankingData) => UniswapLink(row)
   },
   {
-    title: REWARD_HEADER,
+    title: REWARD_HEADER + " ⬇︎",
     dataIndex: REWARD_HEADER,
     width: 100
   }
@@ -77,6 +77,7 @@ const Pools = () => {
   const [poolsDataDate, setPoolsDataDate] = useState(today.toISOString().split("T")[0]);
   const [getPoolsData, { loading, error, data }] = useLazyQuery(getPoolsInfoQuery);
   const [rankingData, setRankingData] = useState<PoolRankingData[]>([]);
+  const [rewardData, setRewardData] = useState<PoolRankingData[]>([]);
 
   function onDateChange(event: FormEvent<HTMLInputElement>) {
     setPoolsDataDate((event.target as HTMLInputElement).value);
@@ -121,6 +122,8 @@ const Pools = () => {
     });
 
     setRankingData(freshRankingData);
+    const sortedRewardData: PoolRankingData[] = [...freshRankingData].sort((a, b) => b[REWARD_HEADER] - a[REWARD_HEADER]);
+    setRewardData(sortedRewardData);
   }, [data]);
 
   if (error) {
@@ -143,7 +146,7 @@ const Pools = () => {
       <p>{REWARD_DESCRIPTION}</p>
 
       {loading ? <button className="btn btn-square loading mx-auto"></button> :
-        <Table className="text-sm" data={rankingData} columns={rewardColumns} />}
+        <Table className="text-sm" data={rewardData} columns={rewardColumns} />}
       <UniswapDataSourcesFooter />
 
     </div>
