@@ -12,7 +12,7 @@ The code was written with the help of [chat gpt 4](https://chat.openai.com/?mode
 ## contract
 
 - [x] deploy a contract
-- [ ] set up hardhat to run local testnet node
+- [x] set up hardhat to run local testnet node
 
 ## website
 

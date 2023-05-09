@@ -1,0 +1,6 @@
+.env
+jwttoken/
+validator_keys/
+geth-data/
+geth-ancient-data/
+lighthouse-data/

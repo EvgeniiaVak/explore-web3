@@ -16,7 +16,7 @@ contract Whitelist {
     // Setting the Max number of whitelisted addresses
     // User will put the value at the time of deployment
     constructor(uint8 _maxWhitelistedAddresses) {
-        maxWhitelistedAddresses =  _maxWhitelistedAddresses;
+        maxWhitelistedAddresses = _maxWhitelistedAddresses;
     }
 
     /**
