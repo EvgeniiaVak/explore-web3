@@ -1,24 +1,25 @@
 # Explore Web3
 
-A study project for exploring web3 based on [LearnWeb3 DAO's sophomore course task](https://learnweb3.io/courses)
-with quite a few additions and alterations:
-
-- use of typescript instead of javascript
-- libraries updated to latest versions
-- some sections are entirely outside the course track, like Uniswap pools
+A study project for exploring web3 based on [LearnWeb3 DAO's course](https://learnweb3.io/courses)
+with quite a few additions and alterations.
 
 The code was written with the help of [chat gpt 4](https://chat.openai.com/?model=gpt-4).
 
-## contract
+## Features that are not part of the course
 
-- [x] deploy a contract
+- [x] Typescript (instead of JS)
+
+### contract
+
 - [x] set up hardhat to run local testnet node
+- [ ] write tests (+ check out hardhat debug feature)
+- [ ] upgrade packages
 
-## website
+### website
 
-- [ ] connect wallet
+- [ ] connect wallet via qr code (as opposed to only browser extension)
 
-### pools
+#### /pools
 
 Exploration of uniswap liquidity pools based on their graphql data.
 
@@ -28,9 +29,8 @@ Exploration of uniswap liquidity pools based on their graphql data.
 - [ ] use graphql subscription to update data live
 - [ ] display user's liquidity position in each pool if any
 
-### whitelist
+#### /whitelist
 
 Just a whitelist, look up the contract address in [src/constants.ts](website/src/constants.ts).
 
-- [x] display number of subscribers
-- [x] allow to subscribe (limited to 10)
+- [ ] show correct number of subscribers even if the wallet is not connected
