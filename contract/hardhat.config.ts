@@ -8,7 +8,7 @@ const env = process.env;
 
 const config: HardhatUserConfig = {
   solidity: "0.8.17",
-  defaultNetwork: "quicknode",
+  defaultNetwork: "hardhat",
   networks: {
     quicknode: {
       url: env.QUICKNODE_HTTP_URL,
